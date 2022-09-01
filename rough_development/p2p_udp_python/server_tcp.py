@@ -8,7 +8,7 @@ sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
 sock.bind(('0.0.0.0', 55555))
 sock.listen(1)
-sock.settimeout(5)
+sock.settimeout(60)
 
 while True:
     clients = []

@@ -9,7 +9,8 @@ print('connecting to rendezvous server')
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) ## socket.SOCK_DGRAM
 sock.bind(('0.0.0.0', 50008))
-sock.sendto(b'0', rendezvous)
+sock.connect(rendezvous)
+# sock.sendto(b'0', rendezvous)
 
 while True:
     data = sock.recv(1024).decode()
