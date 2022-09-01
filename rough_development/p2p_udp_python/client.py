@@ -2,13 +2,13 @@ import socket
 import sys
 import threading
 
-rendezvous = ('124.41.198.88', 55555)
+rendezvous = ('124.41.198.88', 50000)
 
 # connect to rendezvous
 print('connecting to rendezvous server')
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.bind(('0.0.0.0', 50001))
+sock.bind(('0.0.0.0', 50008))
 sock.sendto(b'0', rendezvous)
 
 while True:
