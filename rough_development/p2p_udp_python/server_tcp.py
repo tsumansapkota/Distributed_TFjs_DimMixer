@@ -1,15 +1,22 @@
 import socket
 
-known_port = 50002
+known_port = 50009
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+# sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
+
 sock.bind(('0.0.0.0', 55555))
+sock.listen(1)
+sock.settimeout(5)
 
 while True:
     clients = []
 
     while True:
-        data, address = sock.recvfrom(128)
+        conn, address = sock.accept()
+        # data = conn.recv(128)
+        # data, address = sock.recvfrom(128)
 
         print('connection from: {}'.format(address))
         clients.append(address)

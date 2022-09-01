@@ -26,7 +26,7 @@ def getPrice(corpName):
 
 socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM);
 
-socket.bind(("127.0.0.1", 4141));
+socket.bind(("0.0.0.0", 4141));
 
  
 

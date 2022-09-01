@@ -2,12 +2,12 @@ import socket
 import sys
 import threading
 
-rendezvous = ('124.41.198.88', 50000)
+rendezvous = ('192.168.1.15', 55555)
 
 # connect to rendezvous
 print('connecting to rendezvous server')
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) ## socket.SOCK_DGRAM
 sock.bind(('0.0.0.0', 50008))
 sock.sendto(b'0', rendezvous)
 
@@ -32,16 +32,17 @@ print('  dest port:   {}\n'.format(dport))
 # equiv: echo 'punch hole' | nc -u -p 50001 x.x.x.x 50002
 print('punching hole')
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.bind(('0.0.0.0', sport))
 sock.sendto(b'0', (ip, dport))
+sock.close()
 
 print('ready to exchange messages\n')
 
 # listen for
 # equiv: nc -u -l 50001
 def listen():
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.bind(('0.0.0.0', sport))
 
     while True:
@@ -53,7 +54,7 @@ listener.start()
 
 # send messages
 # equiv: echo 'xxx' | nc -u -p 50002 x.x.x.x 50001
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.bind(('0.0.0.0', dport))
 
 while True:
